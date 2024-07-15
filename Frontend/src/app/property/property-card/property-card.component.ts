@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-property-card',
@@ -7,11 +7,6 @@ import { Component } from '@angular/core';
 })
 export class PropertyCardComponent {
   // will fetch data from APIs
-  Property: any = {
-    Id: 1,
-    Name: 'Huzaifa Ilyas',
-    Type: 'House',
-    Price: 12000,
-    ImageUrl: 'assets/images/house_default.png',
-  };
+
+  @Input() property: any;
 }
