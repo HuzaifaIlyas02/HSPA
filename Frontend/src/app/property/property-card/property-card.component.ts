@@ -7,6 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class PropertyCardComponent {
   // will fetch data from APIs
-
   @Input() property: any;
 }

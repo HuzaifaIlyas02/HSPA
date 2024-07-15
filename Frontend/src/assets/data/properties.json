@@ -1,0 +1,26 @@
+[
+    {
+      "Id": 1,
+      "Name": "Autrian",
+      "Type": "House",
+      "Price": 12000
+    },
+    {
+      "Id": 2,
+      "Name": "Pakistan",
+      "Type": "House",
+      "Price": 12000
+    },
+    {
+      "Id": 3,
+      "Name": "Huzaifa Ilyas",
+      "Type": "House",
+      "Price": 12400
+    },
+    {
+      "Id": 4,
+      "Name": "Huzaifa Ilyas",
+      "Type": "House",
+      "Price": 14600
+    }
+  ]
