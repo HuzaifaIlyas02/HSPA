@@ -1,26 +1,41 @@
 [
     {
       "Id": 1,
+      "SellRent": 1,
       "Name": "Autrian",
       "Type": "House",
-      "Price": 12000
+      "Price": 120500,
+      "Image": "Prop1.jpg"
     },
     {
       "Id": 2,
+      "SellRent": 2,
       "Name": "Pakistan",
       "Type": "House",
-      "Price": 12000
+      "Price": 125000,
+      "Image": "Prop2.jpg"
     },
     {
       "Id": 3,
+      "SellRent": 1,
       "Name": "Huzaifa Ilyas",
       "Type": "House",
-      "Price": 12400
+      "Price": 124000,
+      "Image": "Prop3.jpg"
     },
     {
       "Id": 4,
+      "SellRent": 1,
       "Name": "Huzaifa Ilyas",
       "Type": "House",
-      "Price": 14600
+      "Price": 146000,
+      "Image": "Prop4.jpg"
+    },
+    {
+      "Id": 5,
+      "SellRent": 1,
+      "Name": "Huzaifa Ilyas",
+      "Type": "House",
+      "Price": 2600
     }
-  ]
+]
