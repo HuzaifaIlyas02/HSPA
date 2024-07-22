@@ -1,3 +1,7 @@
+.card{
+    min-height: 400px;
+}
+
 h1 {
     font-weight: normal;
 }

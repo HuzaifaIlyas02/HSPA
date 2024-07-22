@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
+  FormBuilder,
   FormControl,
   FormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { UserServiceService } from '../../services/user-service.service';
+import { User } from '../../model/user';
+import { AlertifyService } from '../../services/alertify.service';
 
 @Component({
   selector: 'app-user-register',
@@ -14,40 +17,59 @@ import {
 })
 export class UserRegisterComponent implements OnInit {
   registerationForm!: FormGroup;
-  constructor() {}
+
+  user!: User;
+  userSubmitted!: boolean;
+
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserServiceService,
+    private alertify: AlertifyService
+  ) {}
 
   ngOnInit() {
-    this.registerationForm = new FormGroup(
+    this.createRegistrationForm();
+  }
+
+  createRegistrationForm() {
+    this.registerationForm = this.fb.group(
       {
-        userName: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-        ]),
-        confirmPassword: new FormControl('', [Validators.required]),
-        mobile: new FormControl('', [
-          Validators.required,
-          Validators.maxLength(10),
-        ]),
+        userName: [null, Validators.required],
+        email: [null, [Validators.required, Validators.email]],
+        password: [null, [Validators.required, Validators.minLength(8)]],
+        confirmPassword: [null, Validators.required],
+        mobile: [null, [Validators.required, Validators.maxLength(10)]],
       },
-      this.passwordMatchingValidator
+      { validators: this.passwordMatchingValidator }
     );
   }
 
-  passwordMatchingValidator(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
+  passwordMatchingValidator(fg: FormGroup): ValidationErrors | null {
+    return fg.get('password')?.value === fg.get('confirmPassword')?.value
+      ? null
+      : { mismatch: true };
+  }
 
-    if (
-      password &&
-      confirmPassword &&
-      password.value !== confirmPassword.value
-    ) {
-      return { mismatch: true };
+  onSubmit() {
+    console.log(this.registerationForm);
+    this.userSubmitted = true;
+    if (this.registerationForm.valid) {
+      // this.user = Object.assign(this.user, this.registerationForm.value);
+      this.userService.addUser(this.userData());
+      this.registerationForm.reset();
+      this.userSubmitted = false;
+      this.alertify.success('Congrats, you are successfully registered');
+    } else {
+      this.alertify.error('Kindly provide the required fields');
     }
-
-    return null;
+  }
+  userData(): User {
+    return (this.user = {
+      userName: this.userName.value,
+      email: this.email.value,
+      password: this.password.value,
+      mobile: this.mobile.value,
+    });
   }
 
   get userName() {
@@ -68,9 +90,5 @@ export class UserRegisterComponent implements OnInit {
 
   get mobile() {
     return this.registerationForm.get('mobile') as FormControl;
-  }
-
-  onSubmit() {
-    console.log(this.registerationForm);
   }
 }
