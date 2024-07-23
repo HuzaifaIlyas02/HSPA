@@ -1,5 +1,30 @@
-<div class="row">
-    <div *ngFor="let property of properties" class="shadow-lg col-sm-4 p-3">
-        <app-property-card [property]="property"></app-property-card>
+<div class="container mt-4">
+    <!-- Filter and Sort UI -->
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex align-items-center">
+            <label for="filterCity" class="m-2">Filter by City:</label>
+            <input id="filterCity" type="text" class="form-control mr-2" placeholder="Enter city" [(ngModel)]="City" />
+            <button class="btn btn-primary mr-2" (click)="onCityFilter()">Search</button>
+            <button class="btn btn-secondary" (click)="onCityFilterClear()">Clear</button>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-end">
+            <label for="sortParam" class="m-2">Sort by:</label>
+            <select id="sortParam" class="form-control mr-2" [(ngModel)]="SortbyParam">
+                <option value="City">City</option>
+                <option value="Price">Price</option>
+            </select>
+            <button class="btn btn-info" (click)="onSortDirection()">
+                <i *ngIf="SortDirection === 'asc'" class="fas fa-sort-alpha-down"></i>
+                <i *ngIf="SortDirection === 'desc'" class="fas fa-sort-alpha-up"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Property List -->
+    <div class="row">
+        <div *ngFor="let property of (properties | filter: City:'City' | sort: SortbyParam: SortDirection)"
+            class="col-sm-12 col-md-6 col-lg-4 mb-4">
+            <app-property-card [property]="property" class="shadow-lg p-3"></app-property-card>
+        </div>
     </div>
 </div>
