@@ -1,0 +1,32 @@
+/* Custom styles for navbar and dropdown */
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #00bcd4;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.dropdown-menu {
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.dropdown-menu .dropdown-item i {
+    margin-right: 10px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: rgba(0, 188, 212, 0.2);
+}

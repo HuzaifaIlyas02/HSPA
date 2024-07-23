@@ -31,11 +31,12 @@
                     <a class="nav-link" (click)="onLogout()">Logout</a>
                 </li> -->
 
-                <div *ngIf="loggedin()" class="dropdown mr-5" dropdown>
-                    <a href="#" class="dropdown-toggle text-light text-decoration-none" dropdownToggle (click)="false">
+                <div *ngIf="loggedin()" class="nav-item dropdown mr-5" dropdown>
+                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown"
+                        dropdownToggle (click)="false">
                         Welcome {{loggedinUser}}
                     </a>
-                    <div class="dropdown-menu" *dropdownMenu>
+                    <div class="dropdown-menu dropdown-menu-end" *dropdownMenu aria-labelledby="navbarDropdown">
                         <a href="#" class="dropdown-item">
                             <i class="fas fa-tachometer-alt"></i> View Dashboard</a>
                         <a href="#" class="dropdown-item">

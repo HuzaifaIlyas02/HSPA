@@ -1,32 +1,35 @@
-<div class="card">
-    <div class="card-img-wrapper">
-        <img *ngIf="property.Image" src="assets/images/{{property.Image}}" class="card-img-top">
-        <img *ngIf="!property.Image" src="assets/images/House_default.jpg" class="card-img-top">
-        <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">
-            <li class="list-inline-item ">
-                <button class="btn btn-primary" routerLink="/property-detail/{{property.Id}}"><i
-                        class="fa-solid fa-pen-to-square"></i></button>
+<div class="card bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="card-img-wrapper relative">
+        <img *ngIf="property.Image" [src]="'assets/images/' + property.Image"
+            class="card-img-top w-full h-48 object-cover">
+        <img *ngIf="!property.Image" src="assets/images/House_default.jpg"
+            class="card-img-top w-full h-48 object-cover">
+        <ul *ngIf="!hideIcons"
+            class="list-inline text-center member-icons animate absolute bottom-2 right-2 flex space-x-2">
+            <li class="list-inline-item">
+                <button
+                    class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                    routerLink="/property-detail/{{property.Id}}">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
             </li>
-            <li class="list-inline-item ">
-                <button class="btn btn-primary"><i class="fa-solid fa-address-book"></i></button>
+            <li class="list-inline-item">
+                <button
+                    class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                    <i class="fa-solid fa-address-book"></i>
+                </button>
             </li>
         </ul>
     </div>
-    <div class="card-body p-1">
-        <h1 class="mb-0"> {{property.BHK}} BHK {{property.PType}} </h1>
-
-        in {{property.Name}}
-        <span *ngIf="property.Name">,</span>
-        {{property.City}}
-
-        <h6 class="mt-2">{{property.FType}}
+    <div class="card-body p-4">
+        <h1 class="text-xl font-bold mb-2">{{property.BHK}} BHK {{property.PType}}</h1>
+        <p class="text-gray-600">in {{property.Name}}<span *ngIf="property.Name">,</span> {{property.City}}</p>
+        <h6 class="mt-2 text-sm text-gray-700">{{property.FType}}
             <span *ngIf="property.FType !== 'Unfurnished'">Furnished</span>
             <span *ngIf="property.RTM"> | Ready to Move</span>
         </h6>
-
-        <hr class="mt-0 mb-2">
-
-        <h6 class="mb-0">Price: <span class="font-highlight">{{property.Price}} USD.</span> |
-            Area: <span class="font-highlight">{{property.BuiltArea}} Sq Ft </span> </h6>
+        <hr class="mt-4 mb-2 border-gray-300">
+        <h6 class="text-lg font-semibold">Price: <span class="font-highlight text-blue-600">{{property.Price}}
+                USD</span> | Area: <span class="font-highlight text-blue-600">{{property.BuiltArea}} Sq Ft</span></h6>
     </div>
 </div>
