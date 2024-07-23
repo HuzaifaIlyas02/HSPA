@@ -12,18 +12,23 @@
 
               <!-- Basic Info -->
 
-              <tab heading="Basic Info" ngModelGroup="BasicInfo" #BasicInfo="ngModelGroup">
+              <tab heading="Basic Info" formGroupName="BasicInfo">
                 <div class="form-group col-12">
                   <p>I want to </p>
-                  <div class="btn-group" btnRadioGroup ngModel name="SellRent" required>
+                  <div class="btn-group" btnRadioGroup formControlName="SellRent">
                     <label class="btn btn-outline-primary m-2" btnRadio=1 role="button" name="SellRent">Sell</label>
                     <label class="btn btn-outline-primary m-2" btnRadio=2 role="button" name="SellRent">Rent</label>
+                  </div>
+
+                  <div class="error-block" *ngIf="SellRent.invalid && nextClicked">
+                    Please select Sell or Rent
                   </div>
                 </div>
 
                 <div class="form-group col-12">
                   <p>BHK </p>
-                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.BHK" name="BHK">
+                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.BHK" name="BHK"
+                    [ngModelOptions]="{standalone: true}">
                     <label *ngFor="let bhk of [1,2,3,4]" class="btn btn-outline-primary m-2" [btnRadio]="bhk"
                       role="button" name="SellRent">{{bhk}}</label>
                   </div>
@@ -31,7 +36,8 @@
 
                 <div class="form-group col-12">
                   <p>Property Type </p>
-                  <div class="btn-group" btnRadioGroup name="propType" [(ngModel)]="propertyView.PType">
+                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.PType" name="PType"
+                    [ngModelOptions]="{standalone: true}">
                     <label *ngFor="let ptype of propertyTypes" class="btn btn-outline-primary m-2" [btnRadio]="ptype"
                       role="button" name="SellRent">{{ptype}}</label>
                   </div>
@@ -39,7 +45,8 @@
 
                 <div class="form-group col-12">
                   <p>Furnished Type </p>
-                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.FType" name="FType">
+                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.FType" name="FType"
+                    [ngModelOptions]="{standalone: true}">
                     <label *ngFor="let ftype of furnishTypes" class="btn btn-outline-primary m-2" [btnRadio]="ftype"
                       role="button" name="SellRent">{{ftype}}</label>
                   </div>
@@ -47,35 +54,42 @@
 
                 <div class="form-group col-12">
                   <label for="name">in Building/Society/Project</label>
-                  <input type="text" class="form-control" #propName="ngModel" ngModel name="Name" required minlength="5"
+                  <input type="text" class="form-control" formControlName="Name" required minlength="5"
                     [(ngModel)]="propertyView.Name">
-                  <span *ngIf="propName.errors?.['required'] && propName.touched" class="error-block">Please Provide
+                  <!-- <span *ngIf="propName.errors?.['required'] && propName.touched" class="error-block">Please Provide
                     your
                     name.</span>
                   <span *ngIf="propName.errors?.['minlength'] && propName.touched" class="error-block">At least 5
-                    Characters</span>
+                    Characters</span> -->
                 </div>
 
                 <div class="form-group col-12">
-                  <label for="price">City</label>
-                  <input type="text" class="form-control" [(ngModel)]="propertyView.City" name="City">
+                  <label>City</label>
+                  <input type="text" class="form-control" [(ngModel)]="propertyView.City" name="City"
+                    [ngModelOptions]="{standalone: true}">
                 </div>
 
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary m-2" (click)="selectTab(1)"
-                    [disabled]="!BasicInfo.valid">Next</button>
+                  <button type="button" class="btn btn-primary m-2"
+                    (click)="selectTab(1, BasicInfo.valid)">Next</button>
                 </div>
 
               </tab>
 
               <!-- Pricing Info -->
-              <tab heading="Pricing and Area">
+              <tab heading="Pricing and Area" formGroupName="PriceInfo">
                 <div class="form-group col-12">
-                  <label>Price (in USD)</label>
-                  <input type="text" class="form-control" name="price" [(ngModel)]="propertyView.Price">
+                  <label *ngIf="SellRent.value==1">Price (in USD)</label>
+                  <label *ngIf="SellRent.value==2">Rent (in USD)</label>
+                  <input type="text" class="form-control" formControlName="Price" [(ngModel)]="propertyView.Price">
+                  <div class="error-block" *ngIf="Price.invalid && (nextClicked || Price.touched)">
+                    Please select
+                    <span *ngIf="SellRent.value==1;else ShowRent">price</span>
+                    <ng-template #ShowRent>rent</ng-template>
+                  </div>
                 </div>
 
-                <div class="form-group col-12">
+                <div class=" form-group col-12">
                   <label>Security (in USD)</label>
                   <input type="text" class="form-control">
                 </div>
@@ -87,7 +101,8 @@
 
                 <div class="form-group col-12">
                   <label>Built Area (in Sqr feet)</label>
-                  <input type="text" class="form-control" [(ngModel)]="propertyView.BuiltArea" name="BuiltArea">
+                  <input type="text" class="form-control" [(ngModel)]="propertyView.BuiltArea"
+                    formControlName="BuiltArea">
                 </div>
 
                 <div class="form-group col-12">
@@ -95,8 +110,8 @@
                   <input type="text" class="form-control">
                 </div>
 
-                <button type="button" class="btn btn-primary m-2" (click)="selectTab(2)">Next</button>
-                <button type="button" class="btn btn-primary m-2" (click)="selectTab(0)">Back</button>
+                <button type="button" class="btn btn-primary m-2" (click)="selectTab(2, PriceInfo.valid)">Next</button>
+                <button type="button" class="btn btn-primary m-2" (click)="selectTab(0, PriceInfo.valid)">Back</button>
               </tab>
 
               <!-- Address -->
@@ -121,8 +136,10 @@
                   <input type="text" class="form-control">
                 </div>
 
-                <button type="button" class="btn btn-primary m-2" (click)="selectTab(3)">Next</button>
-                <button type="button" class="btn btn-primary m-2" (click)="selectTab(1)">Back</button>
+                <button type="button" class="btn btn-primary m-2"
+                  (click)="selectTab(3, AddressInfo.valid)">Next</button>
+                <button type="button" class="btn btn-primary m-2"
+                  (click)="selectTab(1, AddressInfo.valid)">Back</button>
               </tab>
 
               <!-- Other Details -->
@@ -178,8 +195,8 @@
                   <textarea type="text" class="form-control" rows="6"></textarea>
                 </div>
 
-                <button type="button" class="btn btn-primary m-2" (click)="selectTab(4)">Next</button>
-                <button type="button" class="btn btn-primary m-2" (click)="selectTab(2)">Back</button>
+                <button type="button" class="btn btn-primary m-2" (click)="selectTab(4, OtherInfo.valid)">Next</button>
+                <button type="button" class="btn btn-primary m-2" (click)="selectTab(2, OtherInfo.valid)">Back</button>
               </tab>
 
               <!-- Photos -->
@@ -192,7 +209,7 @@
                 </div>
 
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary m-2" (click)="selectTab(3)">Back</button>
+                  <button type="button" class="btn btn-primary m-2" (click)="selectTab(3, true)">Back</button>
                   <button type="reset" class="btn btn-primary m-2">Cancel</button>
                   <button type="submit" class="btn btn-primary m-2">Save</button>
                 </div>

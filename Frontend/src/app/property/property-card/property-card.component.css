@@ -6,6 +6,16 @@ h1 {
     font-weight: normal;
 }
 
+.card-body h1{
+    font-family: fantasy;
+    color: #0069d9;
+}
+
+.font-highlight{
+    font-style: italic;
+    color: red;
+}
+
 .card:hover img{
     transform: scale(1.2,1.2);
     transition: transform 0.5s;
