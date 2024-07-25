@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { IPropertyBase } from '../model/ipropertybase';
 import { Property } from '../model/property';
 
 @Injectable({
@@ -18,6 +17,10 @@ export class HousingService {
         return propertiesArray.find((p) => p.Id === id);
       })
     );
+  }
+
+  getAllCities(): Observable<string[]> {
+    return this.http.get<string[]>('http//localhost:5023/api/city');
   }
 
   getAllProperties(SellRent?: number): Observable<Property[]> {
