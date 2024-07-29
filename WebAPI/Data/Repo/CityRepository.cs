@@ -24,6 +24,11 @@ namespace WebAPI.Data.Repo
 
         }
 
+        public async Task<City> FindCity(int CityId)
+        {
+            return await dc.Cities.FindAsync(CityId);
+        }
+
         public async Task<IEnumerable<City>> GetCitiesAsync()
         {
             return await dc.Cities.ToListAsync();
